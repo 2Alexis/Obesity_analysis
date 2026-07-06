@@ -584,6 +584,52 @@ if predict_btn:
         </div>
         """, unsafe_allow_html=True)
 
+        # ── Conseils personnalisés selon les réponses ──
+        perso = []
+        if smoke == "Oui":
+            perso.append(("🚭", "Vous fumez : songez à vous faire aider si vous n'arrivez pas à arrêter (Tabac Info Service, 39 89 — gratuit)."))
+        if calc in ("Souvent", "Toujours"):
+            perso.append(("🍷", "Consommation d'alcool élevée : réduisez-la progressivement, et n'hésitez pas à demander de l'aide si c'est difficile (Alcool Info Service, 0 980 980 930)."))
+        elif calc == "Parfois":
+            perso.append(("🍷", "Gardez une consommation d'alcool occasionnelle et modérée."))
+        if favc == "Oui":
+            perso.append(("🍔", "Aliments riches en calories fréquents : limitez-les au profit de repas faits maison."))
+        if fcvc < 2:
+            perso.append(("🥦", "Trop peu de légumes : visez au moins une portion à chaque repas."))
+        if caec in ("Souvent", "Toujours"):
+            perso.append(("🍪", "Grignotage fréquent entre les repas : privilégiez des collations saines (fruits, oléagineux) ou espacez-les."))
+        if ncp < 3:
+            perso.append(("🍽️", "Peu de repas structurés : des repas réguliers aident à éviter les fringales."))
+        if ch2o < 1.5:
+            perso.append(("💧", "Hydratation faible : visez environ 1,5 à 2 L d'eau par jour."))
+        if faf < 1:
+            perso.append(("🏃", "Activité physique insuffisante : visez au moins 30 min de marche ou d'exercice la plupart des jours."))
+        if tue > 1:
+            perso.append(("📱", "Temps d'écran élevé : pensez à des pauses actives régulières."))
+        if scc == "Non" and bmi >= 25:
+            perso.append(("📊", "Suivre vos apports caloriques peut vous aider à mieux vous situer."))
+        if family_history == "Oui":
+            perso.append(("🧬", "Antécédents familiaux de surpoids : une hygiène de vie régulière est d'autant plus bénéfique."))
+
+        if perso:
+            items = "".join(
+                f'<div style="display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:0.7rem;">'
+                f'<span style="font-size:1.1rem; line-height:1.4;">{e}</span>'
+                f'<span style="font-size:0.9rem; line-height:1.4;">{t}</span></div>'
+                for e, t in perso
+            )
+        else:
+            items = ('<div style="display:flex; gap:0.6rem; align-items:flex-start;">'
+                     '<span style="font-size:1.1rem;">✅</span>'
+                     '<span style="font-size:0.9rem;">Vos habitudes de vie sont globalement saines. Continuez ainsi !</span></div>')
+
+        st.markdown(f"""
+        <div class="advice-card">
+            <p style="font-weight:600; color:#667eea !important; margin-bottom:0.9rem !important;">🎯 Conseils personnalisés</p>
+            {items}
+        </div>
+        """, unsafe_allow_html=True)
+
         # Quick stats
         st.markdown(f"""
         <div class="glass-card" style="padding:1.2rem;">
