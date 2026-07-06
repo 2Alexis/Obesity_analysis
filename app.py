@@ -46,12 +46,27 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     .hero-container h1 {
-        font-size: 2.6rem !important;
+        font-size: 2.8rem !important;
         font-weight: 800 !important;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        background: linear-gradient(110deg, #667eea, #764ba2 40%, #f093fb 70%, #667eea);
+        background-size: 220% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 0.5rem;
+        animation: hero-shine 6s linear infinite;
+    }
+    @keyframes hero-shine { to { background-position: 220% center; } }
+    .hero-badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #b794f4;
+        border: 1px solid rgba(183, 148, 244, 0.35);
+        background: rgba(183, 148, 244, 0.07);
+        border-radius: 999px;
+        padding: 0.3rem 0.95rem;
+        margin-bottom: 0.9rem;
     }
     .hero-subtitle {
         color: #8892b0 !important;
@@ -356,7 +371,8 @@ CLASS_INFO = {
 # ─────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero-container">
-    <h1>🔬 NutriScan</h1>
+    <span class="hero-badge">🔬 Machine Learning · Santé</span>
+    <h1>NutriScan</h1>
     <p class="hero-subtitle">Analyse prédictive de votre profil nutritionnel basée sur vos habitudes de vie</p>
 </div>
 """, unsafe_allow_html=True)
